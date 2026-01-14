@@ -204,7 +204,7 @@ function App() {
         <div style={{
             minHeight: '100vh',
             padding: '40px 20px',
-            backgroundImage: `url('many.jpg')`,
+            backgroundImage: `url('5lọdừa.jpg')`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundAttachment: 'fixed',

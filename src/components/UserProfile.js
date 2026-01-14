@@ -38,26 +38,31 @@ const UserProfile = ({ user, onUpdate }) => {
     setData(prev => ({ ...prev, password: '' }));
   };
 
-  // Style nền đen (Background Image)
-  const containerStyle = {
+  // STYLE 1: Nền toàn màn hình (Dùng Linear-gradient để làm tối ảnh cho dễ đọc chữ)
+  const fullScreenBackgroundStyle = {
     minHeight: '100vh',
-    padding: '40px 20px',
-    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), url('https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')`,
+    width: '100%',
+    padding: '60px 20px',
+    backgroundImage: `url("/5lọdừa.jpg")`, 
     backgroundSize: 'cover',
     backgroundPosition: 'center',
-    backgroundAttachment: 'fixed',
-    color: '#fff'
+    backgroundAttachment: 'fixed', // Giữ ảnh đứng yên khi cuộn
+    color: '#fff',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'flex-start'
   };
 
-  // Style hiệu ứng kính mờ (Glassmorphism)
+  // STYLE 2: Hiệu ứng kính mờ (Giữ nguyên Glassmorphism của bạn)
   const glassStyle = {
-    background: 'rgba(34, 34, 34, 0.9)',
+    background: 'rgba(34, 34, 34, 0.85)',
     padding: '30px',
     borderRadius: '16px',
     border: '1px solid #444',
     backdropFilter: 'blur(10px)',
     boxShadow: '0 10px 30px rgba(0,0,0,0.5)',
     maxWidth: '800px',
+    width: '100%',
     margin: '0 auto'
   };
 
@@ -68,13 +73,21 @@ const UserProfile = ({ user, onUpdate }) => {
   };
 
   return (
-    <div style={containerStyle}>
+    <div style={fullScreenBackgroundStyle}>
       <section style={glassStyle}>
-        <h2 style={{ marginBottom: '25px', borderBottom: '2px solid #007bff', paddingBottom: '10px', color: '#007bff', fontSize: '1.8rem' }}>
+        <h2 style={{ 
+          marginBottom: '25px', 
+          borderBottom: '2px solid #007bff', 
+          paddingBottom: '10px', 
+          color: '#007bff', 
+          fontSize: '1.8rem',
+          display: 'flex',
+          alignItems: 'center'
+        }}>
           👤 Hồ sơ cá nhân
         </h2>
         
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px' }}>
           <div>
             <label style={{ fontWeight: '500' }}>Họ và Tên</label>
             <input type="text" value={data.fullName} onChange={(e) => setData({...data, fullName: e.target.value})} style={inputStyle} />
@@ -95,7 +108,22 @@ const UserProfile = ({ user, onUpdate }) => {
           <input type="password" value={data.password} onChange={(e) => setData({...data, password: e.target.value})} style={inputStyle} placeholder="Nhập mật khẩu mới..." />
         </div>
 
-        <button onClick={handleSubmit} style={{ marginTop: '25px', padding: '12px 30px', cursor: 'pointer', background: '#007bff', color: '#fff', border: 'none', borderRadius: '8px', fontWeight: 'bold' }}>
+        <button 
+          onClick={handleSubmit} 
+          style={{ 
+            marginTop: '25px', 
+            padding: '12px 30px', 
+            cursor: 'pointer', 
+            background: '#007bff', 
+            color: '#fff', 
+            border: 'none', 
+            borderRadius: '8px', 
+            fontWeight: 'bold',
+            transition: '0.3s'
+          }}
+          onMouseOver={(e) => e.target.style.background = '#0056b3'}
+          onMouseOut={(e) => e.target.style.background = '#007bff'}
+        >
           Lưu thay đổi
         </button>
       </section>
