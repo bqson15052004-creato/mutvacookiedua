@@ -1,6 +1,7 @@
 import React from 'react';
+import { servicesData } from '../data/servicesData';
 // Thêm prop services vào đây
-const Header = ({ setView, user, cartCount, onLoginClick, onLogout, onServiceSelect, services = [] }) => {
+const Header = ({ setView, user, cartCount, onLoginClick, onLogout, onServiceSelect}) => {
   return (
     <div className="header">
       <div className="logo" onClick={() => setView('home')}>
@@ -8,17 +9,19 @@ const Header = ({ setView, user, cartCount, onLoginClick, onLogout, onServiceSel
       </div>
       
       <div className="nav-links">
-        <button className="nav-btn" onClick={() => setView('home')}>Trang Chủ</button>
+        <button className="nav-btn" onClick={() => setView('home')}>
+          🏠 Trang chủ
+        </button>
         
         {/* DROPDOWN DỊCH VỤ ĐỘNG */}
         <div className="nav-item-dropdown">
-          <button className="nav-btn" onClick={() => setView('home')}>
-            Sản Phẩm ▼
+          <button className="nav-btn">
+            🍪 Sản phẩm
           </button>
           <div className="dropdown-menu">
-            {services.map(service => (
+            {servicesData.map(service => (
               <div 
-                key={service.id} 
+                key={service.id}
                 className="dropdown-item"
                 onClick={() => onServiceSelect(service)}
               >
@@ -29,11 +32,13 @@ const Header = ({ setView, user, cartCount, onLoginClick, onLogout, onServiceSel
         </div>
 
         {cartCount >= 0 && (
-          <button className="nav-btn" onClick={() => setView('cart')} style={{color: '#ffc107'}}>
+          <button className="nav-btn" onClick={() => setView('cart')}>
             🛒 Giỏ hàng ({cartCount})
           </button>
         )}
-        <button className="nav-btn" onClick={() => setView('contact')}>Liên Hệ</button>
+        <button className="nav-btn" onClick={() => setView('contact')}>
+          📞 Liên hệ
+        </button>
         {user ? (
           <div className="nav-item-dropdown">
             <button className="nav-btn">👤 {user.fullName} ▼</button>
@@ -41,13 +46,13 @@ const Header = ({ setView, user, cartCount, onLoginClick, onLogout, onServiceSel
               <div className="dropdown-item" onClick={() => setView('profile')}>Hồ sơ của tôi</div>
               <div className="dropdown-item" onClick={() => setView('my-orders')}>Đơn hàng</div>
               {user.role === 'admin' && (
-                <div className="dropdown-item" onClick={() => setView('admin')}>Quản lý Shop</div>
+                <div className="dropdown-item" onClick={() => setView('admin')}>Quản lý shop</div>
               )}
               <div className="dropdown-item" onClick={onLogout} style={{borderTop:'1px solid #ddd'}}>Đăng xuất</div>
             </div>
           </div>
         ) : (
-          <button className="nav-btn" onClick={onLoginClick}>Đăng Nhập</button>
+          <button className="nav-btn" onClick={onLoginClick}>Đăng nhập</button>
         )}
       </div>
     </div>

@@ -13,7 +13,7 @@ const Home = ({ feedbacks, onOrderClick, onServiceSelect }) => {
 
  
       <div id="services-section" className="container" style={{ padding: '40px 60px' }}>
-        <h2 style={{ textAlign: 'center', marginBottom: '40px', textTransform: 'uppercase', color: '#fff' }}>Sản Phẩm Nổi Bật</h2>
+        <h2 style={{ textAlign: 'center', marginBottom: '40px', textTransform: 'uppercase', color: '#fff' }}>Sản phẩm nổi bật</h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px' }}>
           {servicesData.map((service) => (
             <button
@@ -36,28 +36,6 @@ const Home = ({ feedbacks, onOrderClick, onServiceSelect }) => {
             </button>
           ))}
         </div>
-      </div>
-
-      {/* PHẦN FEEDBACK CÔNG KHAI (Chỉ hiển thị, không cho nhập) */}
-      <div className="container" style={{ padding: '60px 20px', borderTop: '1px solid #333' }}>
-        <h2 style={{ textAlign: 'center', marginBottom: '40px', color: '#fff' }}>ĐÁNH GIÁ TỪ KHÁCH HÀNG</h2>
-
-        {feedbacks.length === 0 ? (
-           <p style={{textAlign:'center', color:'#888'}}>Chưa có đánh giá nào.</p>
-        ) : (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px' }}>
-            {feedbacks.map(fb => (
-              <div key={fb.id} style={{ background: '#1e1e1e', padding: '20px', borderRadius: '10px', border: '1px solid #333' }}>
-                <div style={{ color: '#ffc107', marginBottom: '10px' }}>
-                  {'★'.repeat(fb.rating)}{'☆'.repeat(5 - fb.rating)}
-                </div>
-                <p style={{ fontWeight: 'bold', fontSize: '1.1rem' }}>{fb.name}</p>
-                <p style={{ color: '#ccc', fontStyle: 'italic', margin: '10px 0' }}>"{fb.comment}"</p>
-                <small style={{ color: '#666' }}>{new Date(fb.date).toLocaleDateString('vi-VN')}</small>
-              </div>
-            ))}
-          </div>
-        )}
       </div>
     </div>
   );

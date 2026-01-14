@@ -23,56 +23,82 @@ const UserProfile = ({ user, onUpdate }) => {
     if (!data.fullName || data.fullName.trim() === '') {
       alert("Họ và tên không được để trống!"); return;
     }
-    if (!data.phone || !data.address) {
-      alert("Vui lòng nhập đủ SĐT và Địa chỉ!"); return;
-    }
-
     const updateInfo = {
       fullName: data.fullName,
       phone: data.phone,
       address: data.address
     };
-    
     if (data.password && data.password.trim() !== '') {
-      if (data.password.length <= 5 || data.password.length >= 15) {
-        alert("Mật khẩu mới phải lớn hơn 5 và nhỏ hơn 15 ký tự!"); return;
+      if (data.password.length <= 5) {
+        alert("Mật khẩu mới quá ngắn!"); return;
       }
       updateInfo.password = data.password;
     }
-
-    // Gọi hàm onUpdate truyền từ App.js
     onUpdate(updateInfo);
+    setData(prev => ({ ...prev, password: '' }));
+  };
+
+  // Style nền đen (Background Image)
+  const containerStyle = {
+    minHeight: '100vh',
+    padding: '40px 20px',
+    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), url('https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundAttachment: 'fixed',
+    color: '#fff'
+  };
+
+  // Style hiệu ứng kính mờ (Glassmorphism)
+  const glassStyle = {
+    background: 'rgba(34, 34, 34, 0.9)',
+    padding: '30px',
+    borderRadius: '16px',
+    border: '1px solid #444',
+    backdropFilter: 'blur(10px)',
+    boxShadow: '0 10px 30px rgba(0,0,0,0.5)',
+    maxWidth: '800px',
+    margin: '0 auto'
+  };
+
+  const inputStyle = {
+    width: '100%', padding: '12px', borderRadius: '8px', 
+    border: '1px solid #555', background: '#222', color: '#fff', 
+    outline: 'none', marginTop: '8px'
   };
 
   return (
-    <div className="profile-container">
-      <h2 style={{marginBottom: '20px', borderBottom: '1px solid #ccc', paddingBottom: '10px', color: '#007bff'}}>
-        Hồ sơ cá nhân
-      </h2>
-      
-      <div style={{marginBottom: '15px'}}>
-        <label style={{display: 'block', marginBottom: '5px', fontWeight: 'bold'}}>Họ và Tên <span style={{color:'red'}}>*</span></label>
-        <input type="text" value={data.fullName} onChange={(e) => setData({...data, fullName: e.target.value})} style={{width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ccc'}} />
-      </div>
+    <div style={containerStyle}>
+      <section style={glassStyle}>
+        <h2 style={{ marginBottom: '25px', borderBottom: '2px solid #007bff', paddingBottom: '10px', color: '#007bff', fontSize: '1.8rem' }}>
+          👤 Hồ sơ cá nhân
+        </h2>
+        
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+          <div>
+            <label style={{ fontWeight: '500' }}>Họ và Tên</label>
+            <input type="text" value={data.fullName} onChange={(e) => setData({...data, fullName: e.target.value})} style={inputStyle} />
+          </div>
+          <div>
+            <label style={{ fontWeight: '500' }}>Số điện thoại</label>
+            <input type="text" value={data.phone} onChange={(e) => setData({...data, phone: e.target.value})} style={inputStyle} />
+          </div>
+        </div>
 
-      <div style={{marginBottom: '15px'}}>
-        <label style={{display: 'block', marginBottom: '5px', fontWeight: 'bold'}}>Số điện thoại <span style={{color:'red'}}>*</span></label>
-        <input type="text" value={data.phone} onChange={(e) => setData({...data, phone: e.target.value})} style={{width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ccc'}} />
-      </div>
+        <div style={{ marginTop: '20px' }}>
+          <label style={{ fontWeight: '500' }}>Địa chỉ mặc định</label>
+          <input type="text" value={data.address} onChange={(e) => setData({...data, address: e.target.value})} style={inputStyle} />
+        </div>
 
-      <div style={{marginBottom: '20px'}}>
-        <label style={{display: 'block', marginBottom: '5px', fontWeight: 'bold'}}>Địa chỉ nhận đồ <span style={{color:'red'}}>*</span></label>
-        <input type="text" value={data.address} onChange={(e) => setData({...data, address: e.target.value})} style={{width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ccc'}} />
-      </div>
+        <div style={{ marginTop: '20px' }}>
+          <label style={{ fontWeight: '500' }}>Đổi mật khẩu (Bỏ trống nếu không đổi)</label>
+          <input type="password" value={data.password} onChange={(e) => setData({...data, password: e.target.value})} style={inputStyle} placeholder="Nhập mật khẩu mới..." />
+        </div>
 
-      <div style={{marginTop: '30px', background: '#f9f9f9', padding: '15px', borderRadius: '8px', border: '1px solid #eee'}}>
-        <h3 style={{fontSize:'1.1rem', marginBottom:'10px', color: '#333'}}>Đổi mật khẩu</h3>
-        <input type="password" placeholder="Mật khẩu mới (bỏ qua nếu không đổi)..." value={data.password} onChange={(e) => setData({...data, password: e.target.value})} style={{width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ccc', background:'#fff'}} />
-      </div>
-
-      <button className="btn-primary" onClick={handleSubmit} style={{marginTop:'20px', width: '100%', padding: '12px', fontSize: '1.1rem'}}>
-        Lưu Thay Đổi
-      </button>
+        <button onClick={handleSubmit} style={{ marginTop: '25px', padding: '12px 30px', cursor: 'pointer', background: '#007bff', color: '#fff', border: 'none', borderRadius: '8px', fontWeight: 'bold' }}>
+          Lưu thay đổi
+        </button>
+      </section>
     </div>
   );
 };

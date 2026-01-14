@@ -20,7 +20,7 @@ const AuthModal = ({ onClose, onLogin, onRegister }) => {
 
     // 2. BẮT BUỘC PHẢI LÀ EMAIL (Trừ admin)
     if (form.email !== 'admin' && !isValidEmail(form.email)) {
-      setError("Vui lòng nhập đúng định dạng Email (ví dụ: abc@gmail.com)"); 
+      setError("Vui lòng nhập đúng định dạng Email (ví dụ: sondeptrai@gmail.com)"); 
       return;
     }
 
@@ -91,7 +91,7 @@ const AuthModal = ({ onClose, onLogin, onRegister }) => {
               <div>
                 <label style={{display:'block', marginBottom:'5px', fontWeight:'600', fontSize:'0.9rem'}}>Tên hiển thị</label>
                 <input 
-                  placeholder="Ví dụ: SonGoku" 
+                  placeholder="Ví dụ: sondeptrai" 
                   value={form.name}
                   onChange={e=>setForm({...form, name:e.target.value})} 
                   style={{width: '100%', padding: '10px', border: '1px solid #ccc', borderRadius: '4px'}}
