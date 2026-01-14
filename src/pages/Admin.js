@@ -3,9 +3,11 @@ import React, { useState } from 'react';
 const Admin = ({ orders, users, currentUser, updateStatus, onDeleteUser, onToggleRole, updateOrderQuantity }) => {
   const [activeTab, setActiveTab] = useState('orders');
   const [userPage, setUserPage] = useState(1);
+  const [orderPage, setOrderPage] = useState(1); // State mới cho phân trang đơn hàng
   const [searchTerm, setSearchTerm] = useState('');
   
   const usersPerPage = 5; 
+  const ordersPerPage = 10; // Cấu hình 10 đơn hàng mỗi trang
   const statusFlow = ['pending', 'confirmed', 'shipping', 'done', 'cancelled'];
   
   const statusLabels = { 
@@ -20,6 +22,12 @@ const Admin = ({ orders, users, currentUser, updateStatus, onDeleteUser, onToggl
   const totalRevenue = completedOrders.reduce((sum, o) => sum + (o.finalTotal || 0), 0);
   const totalOrders = orders.length;
   const pendingOrders = orders.filter(o => o.status === 'pending').length;
+
+  // Logic phân trang cho Đơn hàng (orders)
+  const indexOfLastOrder = orderPage * ordersPerPage;
+  const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
+  const currentOrders = orders.slice(indexOfFirstOrder, indexOfLastOrder);
+  const totalOrderPages = Math.ceil(orders.length / ordersPerPage);
 
   const handleStatusChange = (orderId, currentStatus, newStatus) => {
     if (newStatus === 'cancelled') { 
@@ -44,11 +52,37 @@ const Admin = ({ orders, users, currentUser, updateStatus, onDeleteUser, onToggl
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
   const currentUsers = filteredUsers.slice(indexOfFirstUser, indexOfLastUser);
   const totalUserPages = Math.ceil(filteredUsers.length / usersPerPage);
-  const paginate = (pageNumber) => setUserPage(pageNumber);
+  
+  const paginateUser = (pageNumber) => setUserPage(pageNumber);
+  const paginateOrder = (pageNumber) => setOrderPage(pageNumber);
 
   return (
-    <div className="container" style={{ padding: '40px 20px' }}>
-      <h1 style={{ marginBottom: '30px', color: 'var(--primary-blue)', textAlign: 'center' }}>QUẢN TRỊ HỆ THỐNG</h1>
+    <div className="container" style={{
+      padding: '40px 20px',
+      minHeight: '100vh',
+      backgroundImage: 'url("/5lọdừa.jpg")', 
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundAttachment: 'fixed',
+      color: '#fff'
+    }}>
+
+      <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '30px' }}>
+        <h1 style={{ 
+          color: '#fff', 
+          textAlign: 'center',
+          padding: '20px 40px', 
+          backgroundColor: 'rgba(0, 0, 0, 0.6)',
+          borderRadius: '10px',
+          textShadow: '2px 2px 4px rgba(0,0,0,0.8)',
+          fontSize: '2.5rem',
+          fontWeight: 'bold',
+          border: '1px solid rgba(255, 255, 255, 0.1)',
+          backdropFilter: 'blur(5px)'
+        }}>
+          QUẢN TRỊ HỆ THỐNG
+        </h1>
+      </div>
 
       {/* --- MENU TABS --- */}
       <div style={{ display: 'flex', justifyContent: 'center', gap: '15px', marginBottom: '30px', flexWrap: 'wrap', alignItems: 'center' }}>
@@ -96,13 +130,13 @@ const Admin = ({ orders, users, currentUser, updateStatus, onDeleteUser, onToggl
         </div>
       )}
 
-      {/* --- TAB: ĐƠN HÀNG --- */}
+      {/* --- TAB: ĐƠN HÀNG (ĐÃ THÊM PHÂN TRANG 10 ĐƠN) --- */}
       {activeTab === 'orders' && (
         <div style={{ overflowX: 'auto' }}>
           <table className="order-table">
             <thead>
               <tr>
-                <th>Mã Đơn</th>
+                <th>Mã đơn</th>
                 <th>Khách hàng</th>
                 <th>Tên sản phẩm</th>
                 <th>Khối lượng</th>
@@ -111,26 +145,20 @@ const Admin = ({ orders, users, currentUser, updateStatus, onDeleteUser, onToggl
               </tr>
             </thead>
             <tbody>
-              {orders.length === 0 ? (
+              {currentOrders.length === 0 ? (
                 <tr><td colSpan="6" style={{ textAlign: 'center', padding: '20px' }}>Chưa có đơn hàng nào</td></tr>
               ) : (
-                orders.map((order) => {
+                currentOrders.map((order) => {
                   const isLocked = order.status === 'done' || order.status === 'cancelled';
                   return (
                     <tr key={order.id}>
                       <td><strong>#{order.id}</strong></td>
                       <td><div>{order.customerName}</div></td>
-                      
-                      {/* Cột Tên sản phẩm (Chỉ hiện tên) */}
                       <td>
                         {order.items.map((item, idx) => (
-                          <div key={idx} style={{ marginBottom: '4px', fontSize: '0.9rem' }}>
-                            {item.name}
-                          </div>
+                          <div key={idx} style={{ marginBottom: '4px', fontSize: '0.9rem' }}>{item.name}</div>
                         ))}
                       </td>
-
-                      {/* Cột Khối lượng (Hiện số lượng và đơn vị) */}
                       <td>
                         {order.items.map((item, idx) => (
                           <div key={idx} style={{ marginBottom: '4px', fontWeight: 'bold', color: 'var(--primary-blue)' }}>
@@ -138,21 +166,12 @@ const Admin = ({ orders, users, currentUser, updateStatus, onDeleteUser, onToggl
                           </div>
                         ))}
                       </td>
-
                       <td><div style={{ fontWeight: 'bold', color: '#28a745' }}>{(order.finalTotal || 0).toLocaleString()}đ</div>{order.ship && <small style={{ color: '#ffc107' }}>(Gồm 30k ship)</small>}</td>
-                      
-                      {/* Cột Trạng thái (Badge hiển thị + Select thay đổi) */}
                       <td>
                         <div style={{ marginBottom: '8px' }}>
                           <span 
                             className={`badge badge-${order.status}`} 
-                            style={{ 
-                              fontSize: '0.8rem',
-                              padding: '5px 12px',
-                              borderRadius: '20px',
-                              display: 'inline-block',
-                              fontWeight: 'bold',
-                              color: '#fff',
+                            style={{ fontSize: '0.8rem', padding: '5px 12px', borderRadius: '20px', display: 'inline-block', fontWeight: 'bold', color: '#fff',
                               backgroundColor: 
                                 order.status === 'pending' ? '#ffc107' : 
                                 order.status === 'confirmed' ? '#17a2b8' : 
@@ -164,36 +183,39 @@ const Admin = ({ orders, users, currentUser, updateStatus, onDeleteUser, onToggl
                             {statusLabels[order.status] || order.status}
                           </span>
                         </div>
-                        
                         <select 
                           value={order.status} 
                           disabled={isLocked} 
                           onChange={(e) => handleStatusChange(order.id, order.status, e.target.value)} 
-                          style={{ 
-                            padding: '6px', 
-                            borderRadius: '6px', 
-                            border: '1px solid #ccc', 
-                            width: '100%',
-                            cursor: isLocked ? 'not-allowed' : 'pointer', 
-                            backgroundColor: isLocked ? '#e9ecef' : '#fff' 
-                          }}
+                          style={{ padding: '6px', borderRadius: '6px', border: '1px solid #ccc', width: '100%', cursor: isLocked ? 'not-allowed' : 'pointer', backgroundColor: isLocked ? '#e9ecef' : '#fff' }}
                         >
                           {Object.keys(statusLabels).map((key) => {
-                            // LOGIC: Nếu không có phí ship (order.ship === false hoặc undefined) 
-                            // thì ẩn option 'shipping'
-                            if (!order.ship && key === 'shipping') {
-                              return null;
-                            }
+                            if (!order.ship && key === 'shipping') return null;
                             return <option key={key} value={key}>{statusLabels[key]}</option>;
                           })}
                         </select>
                       </td>
                     </tr>
-                  )
+                  );
                 })
               )}
             </tbody>
           </table>
+
+          {/* NÚT PHÂN TRANG CHO ĐƠN HÀNG */}
+          {orders.length > ordersPerPage && (
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px', gap: '5px' }}>
+              {Array.from({ length: totalOrderPages }, (_, i) => (
+                <button 
+                  key={i + 1} 
+                  onClick={() => paginateOrder(i + 1)} 
+                  style={{ padding: '8px 15px', border: '1px solid #007bff', backgroundColor: orderPage === i + 1 ? '#007bff' : '#fff', color: orderPage === i + 1 ? '#fff' : '#007bff', cursor: 'pointer', borderRadius: '4px', fontWeight: 'bold' }}
+                >
+                  {i + 1}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       )}
 
@@ -231,7 +253,7 @@ const Admin = ({ orders, users, currentUser, updateStatus, onDeleteUser, onToggl
               {Array.from({ length: totalUserPages }, (_, i) => (
                 <button 
                   key={i + 1} 
-                  onClick={() => paginate(i + 1)} 
+                  onClick={() => paginateUser(i + 1)} 
                   style={{ padding: '8px 15px', border: '1px solid #007bff', backgroundColor: userPage === i + 1 ? '#007bff' : '#fff', color: userPage === i + 1 ? '#fff' : '#007bff', cursor: 'pointer', borderRadius: '4px', fontWeight: 'bold' }}
                 >
                   {i + 1}

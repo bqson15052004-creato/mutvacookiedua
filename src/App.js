@@ -211,19 +211,21 @@ function App() {
             color: '#fff'
         }}>
           <div className="container" style={{maxWidth: '900px', margin: '0 auto'}}>
-            <div style={{
-              textAlign: 'center',
-              marginBottom: '40px',
-              padding: '20px',
-              background: 'rgba(255, 255, 255, 0.03)', // Nền trắng cực mờ
-              borderRadius: '20px',
-              border: '1px solid rgba(255, 255, 255, 0.1)', // Viền mỏng
-              backdropFilter: 'blur(10px)', // Hiệu ứng làm mờ nền
-              boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.2)'
-            }}>
-              <h2 style={{textAlign: 'center', marginBottom: '30px', color: '#28a745', borderBottom: '2px solid #28a745', paddingBottom: '15px', display: 'inline-block'}}>
+            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '30px' }}>
+              <h1 style={{ 
+                color: '#fff', 
+                textAlign: 'center',
+                padding: '20px 40px', 
+                backgroundColor: 'rgba(0, 0, 0, 0.6)',
+                borderRadius: '10px',
+                textShadow: '2px 2px 4px rgba(0,0,0,0.8)',
+                fontSize: '2.5rem',
+                fontWeight: 'bold',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                backdropFilter: 'blur(5px)'
+              }}>
                 📦 Đơn hàng của bạn
-              </h2>
+              </h1>
             </div>
             {/* Logic lọc đơn hàng */}
             {user && orders.filter(o => (o.email === user.email || o.customerEmail === user.email)).length === 0 ? (
