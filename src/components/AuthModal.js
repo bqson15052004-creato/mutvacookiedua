@@ -19,7 +19,7 @@ const AuthModal = ({ onClose, onLogin, onRegister }) => {
     }
 
     // 2. BẮT BUỘC PHẢI LÀ EMAIL (Trừ admin)
-    if (form.email !== 'admin' && !isValidEmail(form.email)) {
+    if (form.email !== 'admin' && !isValidEmail(form.gmail)) {
       setError("Vui lòng nhập đúng định dạng Email (ví dụ: sondeptrai@gmail.com)"); 
       return;
     }
@@ -102,7 +102,7 @@ const AuthModal = ({ onClose, onLogin, onRegister }) => {
             <div>
               <label style={{display:'block', marginBottom:'5px', fontWeight:'600', fontSize:'0.9rem'}}>Email</label>
               <input 
-                placeholder="vidu@email.com" 
+                placeholder="ví dụ: abc@gmail.com" 
                 value={form.email}
                 onChange={e=>setForm({...form, email:e.target.value})} 
                 style={{width: '100%', padding: '10px', border: '1px solid #ccc', borderRadius: '4px'}}
@@ -136,7 +136,7 @@ const AuthModal = ({ onClose, onLogin, onRegister }) => {
           
           <div style={{marginTop: '20px'}}>
             <button className="btn-primary" onClick={handleSubmit} style={{width: '100%', padding: '12px', fontSize: '1rem', marginBottom: '10px'}}>
-              {isRegister ? 'Đăng Ký Tài Khoản' : 'Đăng Nhập'}
+              {isRegister ? 'Đăng ký tài khoản' : 'Đăng nhập'}
             </button>
             <button onClick={onClose} style={{width:'100%', background:'transparent', border:'none', cursor:'pointer', color:'#666', padding: '5px'}}>
               Đóng cửa sổ
