@@ -5,7 +5,7 @@ const Header = ({ setView, user, cartCount, onLoginClick, onLogout, onServiceSel
   return (
     <div className="header">
       <div className="logo" onClick={() => setView('home')}>
-        MỨT DỪA & KẸO COOKIE DỪA
+        MỨT DỪA & KẸO COOKIE DỪA THUỶ TÍTT
       </div>
       
       <div className="nav-links">

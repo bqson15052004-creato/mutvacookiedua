@@ -13,7 +13,7 @@ const Hero = ({ onOrderClick }) => {
     }}>
       <div className="hero-card" style={{ background: 'rgba(30, 30, 30, 0.8)', backdropFilter: 'blur(5px)' }}>
         <h2 style={{fontSize: '2.5rem', marginBottom: '15px', color: '#fff'}}>
-          Chào mừng đến với Cửa hàng mứt dừa và kẹo cookie dừa của Thuỷ Títt
+          Chào mừng bạn đến với Shop mứt dừa và kẹo cookie dừa của Thuỷ Títt
         </h2>
         <p style={{color: '#ccc', marginBottom: '30px', fontSize: '1.1rem'}}>
           Đăng ký hoặc đặt hàng ngay để trải nghiệm sản phẩm ngon lành nhất! 
