@@ -262,7 +262,6 @@ function App() {
                     </span>
                   </div>
 
-                  {/* Component OrderTracker giữ nguyên nếu muốn, hoặc dùng list bên dưới */}
                   {/* <OrderTracker currentStatus={order.status} /> */}
 
                   <div style={{marginTop: '10px', background: 'rgba(0,0,0,0.2)', padding: '15px', borderRadius: '8px'}}>
