@@ -17,7 +17,7 @@ export const servicesData = [
       { label: '200g', price: 65000 },
       { label: '500g', price: 120000 }
     ],
-    btnImage: 'many.jpg',
+    btnImage: 'mamcookie.jpg',
     description: 'Kẹo cookie dừa giòn tan, vị dừa tự nhiên. Sản phẩm handmade, không chất bảo quản, lý tưởng cho trẻ em và người lớn.'
   }
 ];
