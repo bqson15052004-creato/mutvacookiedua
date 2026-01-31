@@ -4,7 +4,7 @@ const Contact = () => {
   // Style chung cho container - Đồng bộ ảnh nền với trang chủ
   const containerStyle = {
     // Sử dụng thêm lớp phủ tối để chữ và khung kính rõ nét hơn
-    backgroundImage: 'url("/5lọdừa.jpg")',
+    backgroundImage: 'url("/5lodua.jpg")',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     backgroundAttachment: 'fixed', // Giữ ảnh cố định khi cuộn
