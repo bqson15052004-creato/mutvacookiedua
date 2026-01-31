@@ -19,7 +19,7 @@ const AuthModal = ({ onClose, onLogin, onRegister }) => {
     }
 
     // 2. BẮT BUỘC PHẢI LÀ EMAIL (Trừ admin)
-    if (form.email !== 'admin' && !isValidEmail(form.gmail)) {
+    if (form.email !== 'admin' && !isValidEmail(form.email)) {
       setError("Vui lòng nhập đúng định dạng Email (ví dụ: sondeptrai@gmail.com)"); 
       return;
     }
