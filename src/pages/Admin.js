@@ -60,7 +60,7 @@ const Admin = ({ orders, users, currentUser, updateStatus, onDeleteUser, onToggl
     <div className="container" style={{
       padding: '40px 20px',
       minHeight: '100vh',
-      backgroundImage: 'url("/5lọdừa.jpg")', 
+      backgroundImage: 'url("/5lodua.jpg")', 
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       backgroundAttachment: 'fixed',

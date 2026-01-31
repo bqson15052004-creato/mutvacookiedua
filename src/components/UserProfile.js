@@ -43,7 +43,7 @@ const UserProfile = ({ user, onUpdate }) => {
     minHeight: '100vh',
     width: '100%',
     padding: '60px 20px',
-    backgroundImage: `url("/5lọdừa.jpg")`, 
+    backgroundImage: `url("/5lodua.jpg")`, 
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     backgroundAttachment: 'fixed', // Giữ ảnh đứng yên khi cuộn

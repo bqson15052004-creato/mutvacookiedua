@@ -7,7 +7,7 @@ export const servicesData = [
       { label: '500g', price: 75000 },
       { label: '1kg', price: 140000 }
     ],
-    btnImage: 'nồimứt.jpg',
+    btnImage: 'noimut.jpg',
     description: 'Mứt dừa thơm ngon, được làm từ dừa tươi, ngọt tự nhiên. Phù hợp làm quà tặng hoặc ăn vặt hàng ngày.'
   },
   {

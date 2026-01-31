@@ -8,7 +8,7 @@ import UserProfile from './components/UserProfile';
 import Admin from './pages/Admin';
 import Home from './pages/Home';
 import Contact from './components/Contact';
-import OrderTracker from './components/OrderTracker';
+//import OrderTracker from './components/OrderTracker';
 import { servicesData as initialServices } from './data/servicesData'; 
 
 function App() {
@@ -204,7 +204,7 @@ function App() {
         <div style={{
             minHeight: '100vh',
             padding: '40px 20px',
-            backgroundImage: `url('5lọdừa.jpg')`,
+            backgroundImage: `url('5lodua.jpg')`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundAttachment: 'fixed',

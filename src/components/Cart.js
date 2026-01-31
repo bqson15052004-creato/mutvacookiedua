@@ -40,7 +40,7 @@ const Cart = ({ items = [], onRemove, onCheckout, user }) => {
   const containerStyle = {
     minHeight: '100vh',
     padding: '60px 20px',
-    backgroundImage: `url('5lọdừa.jpg')`,
+    backgroundImage: `url('5lodua.jpg')`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     backgroundAttachment: 'fixed',

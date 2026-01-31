@@ -3,7 +3,7 @@ import React from 'react';
 const Hero = ({ onOrderClick }) => {
   return (
     <div className="hero-container" style={{
-      backgroundImage: 'url("/5lọdừa.jpg")',
+      backgroundImage: 'url("/5lodua.jpg")',
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       minHeight: '750px',
